@@ -51,6 +51,7 @@ public class AdminAuthController {
      */
     @PostMapping("/login")
     public Object login(@RequestBody String body, HttpServletRequest request) {
+        // 获取账号密码参数
         String username = JacksonUtil.parseString(body, "username");
         String password = JacksonUtil.parseString(body, "password");
 
@@ -60,6 +61,7 @@ public class AdminAuthController {
 
         Subject currentUser = SecurityUtils.getSubject();
         try {
+            // 登录
             currentUser.login(new UsernamePasswordToken(username, password));
         } catch (UnknownAccountException uae) {
             logHelper.logAuthFail("登录", "用户帐号或密码不正确");
